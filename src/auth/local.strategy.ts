@@ -1,4 +1,4 @@
-import { compareSync } from 'bcryptjs';
+import { compareSync, hashSync } from 'bcryptjs';
 import { BadRequestException, HttpException, HttpStatus } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -30,6 +30,8 @@ export class LocalStorage extends PassportStrategy(Strategy) {
       throw new BadRequestException('用户名不正确！');
     }
 
+    console.log('user.password', user.password);
+    const hashP = hashSync(password, 10);
     if (!compareSync(password, user.password)) {
       throw new BadRequestException('密码错误！');
     }
