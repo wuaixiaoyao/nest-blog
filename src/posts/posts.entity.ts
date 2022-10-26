@@ -59,8 +59,8 @@ export class PostsEntity {
   @ManyToOne((type) => User, (user) => user.nickname)
   author: User;
 
-//   @RelationId( (user:User) => user.posts)
-//   userId:User
+  //   @RelationId( (user:User) => user.posts)
+  //   userId:User
 
   // 分类
   @Exclude()
@@ -84,14 +84,22 @@ export class PostsEntity {
   @Column({ type: 'timestamp', name: 'publish_time', default: null })
   publishTime: Date;
 
-  @Column({ type: 'timestamp', name: 'create_time', default: () => 'CURRENT_TIMESTAMP' })
+  @Column({
+    type: 'timestamp',
+    name: 'create_time',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
   createTime: Date;
 
-  @Column({ type: 'timestamp',name: 'update_time', default: () => 'CURRENT_TIMESTAMP' })
+  @Column({
+    type: 'timestamp',
+    name: 'update_time',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
   updateTime: Date;
 
   toResponseObject(): PostInfoDto {
-    let responseObj: PostInfoDto = {
+    const responseObj: PostInfoDto = {
       ...this,
       isRecommend: this.isRecommend ? true : false,
     };

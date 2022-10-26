@@ -29,7 +29,7 @@ export class PostsService {
       throw new HttpException('文章已存在', HttpStatus.BAD_REQUEST);
     }
 
-    let { tag, category = 0, status, isRecommend, coverUrl } = post;
+    const { tag, category = 0, status, isRecommend, coverUrl } = post;
 
     const categoryDoc = await this.categoryService.findById(category);
 
@@ -69,7 +69,7 @@ export class PostsService {
     qb.limit(pageSize);
     qb.offset(pageSize * (pageNum - 1));
 
-    let posts = await qb.getMany();
+    const posts = await qb.getMany();
     const result: PostInfoDto[] = posts.map((item) => item.toResponseObject());
     return { list: result, count: count };
 

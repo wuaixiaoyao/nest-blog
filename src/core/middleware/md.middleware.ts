@@ -43,10 +43,10 @@ function getToc(html: string) {
     highestLvl,
     count = 0;
   $('h1, h2, h3, h4, h5, h6').each(function () {
-    let id = `h${count}`;
+    const id = `h${count}`;
     count++;
     $(this).attr('id', id);
-    let lvl: number = Number($(this).get(0).tagName.substr(1));
+    const lvl = Number($(this).get(0).tagName.substr(1));
     if (!highestLvl) highestLvl = lvl;
     console.log('lvl:', lvl, highestLvl);
     hArr.push({
@@ -59,8 +59,8 @@ function getToc(html: string) {
 }
 
 function toTree(flatArr) {
-  let result = [];
-  let stack = []; // 栈数组
+  const result = [];
+  const stack = []; // 栈数组
   let collector = result; // 收集器
 
   flatArr.forEach((item, index) => {
@@ -75,11 +75,11 @@ function toTree(flatArr) {
       // 改变收集器为当前级别的子集
       collector = item.children;
     } else {
-      let topStack = stack[stack.length - 1];
+      const topStack = stack[stack.length - 1];
 
       if (topStack.hLevel >= item.hLevel) {
         // 说明不能作为其子集
-        let outTrack = stack.pop(); // 移除栈顶元素
+        const outTrack = stack.pop(); // 移除栈顶元素
         stack.push(item);
 
         // 当前

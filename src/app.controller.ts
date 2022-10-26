@@ -1,11 +1,17 @@
-import { Controller, Get, Post, Put ,UploadedFile,UseInterceptors} from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  UploadedFile,
+  UseInterceptors,
+} from '@nestjs/common';
 import { ApiBody, ApiConsumes, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AppService } from './app.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 
-
 export const ApiFile =
-  (fileName: string = 'file'): MethodDecorator =>
+  (fileName = 'file'): MethodDecorator =>
   (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
     ApiBody({
       schema: {
@@ -19,9 +25,8 @@ export const ApiFile =
       },
     })(target, propertyKey, descriptor);
   };
-@ApiTags("公共接口")
+@ApiTags('公共接口')
 @Controller('app')
-
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
@@ -30,14 +35,12 @@ export class AppController {
     return this.appService.getHello();
   }
 
- 
   @Post('upload')
   @ApiOperation({ summary: '上传文件' })
   @ApiConsumes('multipart/form-data')
   @ApiFile()
-  @UseInterceptors( FileInterceptor('file'))
+  @UseInterceptors(FileInterceptor('file'))
   async uploadFile(@UploadedFile('file') file: any): Promise<any> {
-      console.log("0000", file)
+    console.log('0000', file);
   }
 }
-

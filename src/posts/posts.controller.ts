@@ -67,7 +67,7 @@ export class PostsController {
    */
   @ApiOperation({ summary: '文章归档' })
   @Get('/archives/list')
-  getArchiveList(@Query("time") time: string) {
+  getArchiveList(@Query('time') time: string) {
     return this.postsService.getArchiveList(time);
   }
 

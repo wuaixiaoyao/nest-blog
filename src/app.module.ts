@@ -12,20 +12,20 @@ import { TagModule } from './tag/tag.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true, envFilePath: [envConfig.path] }),
-    ConfigModule.forRoot({isGlobal: true}),
+    ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => ({
         type: 'mysql',
-        host: configService.get('DB_HOST', '127.0.0.0'),
+        host: configService.get('DB_HOST', '152.136.221.155'),
         port: configService.get<number>('DB_PORT', 3306),
         username: configService.get('DB_USER', 'root'),
-        password: configService.get('DB_PASSWORD', 'root'),
+        password: configService.get('DB_PASSWORD', '123456'),
         database: configService.get('DB_DATABASE', 'blog'),
         // charset: 'utf8mb4',
         timezone: '+08:00',
         synchronize: true,
-        autoLoadEntities: true
+        autoLoadEntities: true,
       }),
     }),
     PostsModule,
